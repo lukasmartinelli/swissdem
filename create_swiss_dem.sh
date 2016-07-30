@@ -35,7 +35,15 @@ function compress_inplace() {
 function create_hillshade() {
     local dem_source="$1"
     local hillshade_tif="$2"
+    echo "Calculate hillshade for $hillshade_tif"
     gdaldem hillshade -s "$METERS_SCALE" -co compress=lzw -compute_edges "$dem_source" "$hillshade_tif"
+}
+
+function create_combined_hillshade() {
+    local dem_source="$1"
+    local hillshade_tif="$2"
+    echo "Calculate transparent hillshade for $hillshade_tif"
+    gdaldem hillshade -s "$METERS_SCALE" -co compress=lzw -combined -compute_edges "$dem_source" "$hillshade_tif"
 }
 
 function create_slope() {
@@ -70,11 +78,13 @@ function create_dem_products() {
 
     local relief="$dest_dir/switzerland_relief.tif"
     local hillshade="$dest_dir/switzerland_hillshade.tif"
+    local combined_hillshade="$dest_dir/switzerland_combined_hillshade.tif"
     local slope="$dest_dir/switzerland_slope.tif"
     local slopeshade="$dest_dir/switzerland_slopeshade.tif"
 
     create_color_relief "$dem_source" "./color_relief.txt" "$relief"
     create_hillshade "$dem_source" "$hillshade"
+    create_combined_hillshade "$dem_source" "$combined_hillshade"
     create_slope "$dem_source" "$slope"
     create_slope_shade "$slope" "./color_slope.txt" "$slopeshade"
 }

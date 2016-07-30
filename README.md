@@ -22,9 +22,10 @@ The DEM from SRTM (1 arc second) with filled up holes is available in clipped an
 
 ### Hillshading
 
-Basic hill shading for direct use in a mapping client.
+Basic hill shading (inclusive version with combination of slope and oblique shading for use as overlay in a mapping client).
 
 ![Switzerland Hillshading](demo/switzerland_hillshade.png)
+![Switzerland Combined Hillshading](demo/switzerland_combined_hillshade.png)
 
 ### Slope Shading
 
