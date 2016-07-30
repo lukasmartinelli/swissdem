@@ -1,4 +1,4 @@
-# Digital Elevation Model for Switzerland [![PDDL licensed](https://img.shields.io/badge/license-PDDL-blue.svg)](https://github.com/lukasmartinelli/swissdem#license)
+# Digital Elevation Model for Switzerland [![PDDL licensed](https://img.shields.io/badge/license-PDDL-blue.svg)](https://github.com/lukasmartinelli/swissdem#license) [![Build Status](https://travis-ci.org/lukasmartinelli/swissdem.svg?branch=master)](https://travis-ci.org/lukasmartinelli/swissdem)
 
 You are looking for a [Digital Elevation Model (DEM)](https://en.wikipedia.org/wiki/Digital_elevation_model) of Switzerland?
 Here you find preprocessed [GeoTIFF](-of PNG) downloads for Switzerland from the [Shuttle Radar Topography Mission (SRTM)](https://en.wikipedia.org/wiki/Shuttle_Radar_Topography_Mission)
