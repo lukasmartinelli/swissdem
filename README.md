@@ -1,17 +1,17 @@
 # Digital Elevation Model for Switzerland [![PDDL licensed](https://img.shields.io/badge/license-PDDL-blue.svg)](https://github.com/lukasmartinelli/swissdem#license)
 
 You are looking for a [Digital Elevation Model (DEM)](https://en.wikipedia.org/wiki/Digital_elevation_model) of Switzerland?
-The best public domain DEM is available from the [Shuttle Radar Topography Mission (SRTM)](https://en.wikipedia.org/wiki/Shuttle_Radar_Topography_Mission)
-and provides a resolution [up to 25 meters (1 arc-second)](https://lta.cr.usgs.gov/SRTM1Arc).
+Here you find preprocessed [GeoTIFF](-of PNG) downloads for Switzerland from the [Shuttle Radar Topography Mission (SRTM)](https://en.wikipedia.org/wiki/Shuttle_Radar_Topography_Mission)
+and provides a resolution [up to 25 meters (1 arc-second)](https://lta.cr.usgs.gov/SRTM1Arc). At the moment this is the most accurate public domain DEM for Switzerland.
+
+[**:open_file_folder: Download the GeoTIFF files from the releases page**](https://github.com/lukasmartinelli/swissdem/releases/latest).
 
 This project merges together the different data sets from SRTM (1 arc-second) into a single DEM TIFF
 so you can immediately get started creating your own contour lines, hillshading, etc. It also tries to repair (fill up void) data holes in the SRTM (1 arc-second) data.
 
-[**:open_file_folder: Download the DEM TIFF files from the releases page**](https://github.com/lukasmartinelli/swissdem/releases/latest).
-
 ## Downloads
 
-A overview of the [prepared downloads](https://github.com/lukasmartinelli/swissdem/releases/latest).
+A graphical overview of the [prepared downloads](https://github.com/lukasmartinelli/swissdem/releases/latest).
 
 ### Clipped and Unclipped DEM
 
@@ -26,19 +26,19 @@ Basic hill shading for direct use in a mapping client.
 
 ![Switzerland Hillshading](demo/switzerland_hillshade.png)
 
+### Slope Shading
+
+To make steep slopes stand out we use `gdaldem slope` and `gdaldem color-relief` to
+create a TIF that can be combined with hillshading in a map renderer.
+
+![Switzerland Slope Shading](demo/switzerland_slopeshade.png)
+
 ### Color Relief
 
 Color relief assigning colors to elevation data to enhance elevation zones so map readers
 can better see differences in relief.
 
 ![Switzerland Hillshading](demo/switzerland_relief.png)
-
-### Slope Shading
-
-To make steep slopes stand out we use `gdaldem slope` and `gdaldem color-relief` to
-create a TIF that can be combined with hillshading in a map renderer.
-
-![Switzerland Slope Shading](demo/switzerland_slopeshading.png)
 
 ### Slope
 
@@ -67,4 +67,4 @@ docker run -v $(pwd):/output --rm lukasmartinelli/swissdem
 
 ## License
 
-The DEM files are made available under the Public Domain Dedication and License v1.0 whose full text can be found at: http://www.opendatacommons.org/licenses/pddl/1.0/.
+The GeoTIF files are made available under the Public Domain Dedication and License v1.0 whose full text can be found at: http://www.opendatacommons.org/licenses/pddl/1.0/.

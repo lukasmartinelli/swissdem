@@ -35,14 +35,14 @@ function compress_inplace() {
 function create_hillshade() {
     local dem_source="$1"
     local hillshade_tif="$2"
-    gdaldem hillshade -s "$METERS_SCALE" -co compress=lzw "$dem_source" "$hillshade_tif"
+    gdaldem hillshade -s "$METERS_SCALE" -co compress=lzw -compute_edges "$dem_source" "$hillshade_tif"
 }
 
 function create_slope() {
     local dem_source="$1"
     local slope_tif="$2"
     echo "Calculate slope for $slope_tif"
-    gdaldem slope -s "$METERS_SCALE" -co compress=lzw "$dem_source" "$slope_tif"
+    gdaldem slope -s "$METERS_SCALE" -co compress=lzw -compute_edges "$dem_source" "$slope_tif"
 }
 
 function create_color_relief() {
@@ -50,7 +50,7 @@ function create_color_relief() {
     local color_ramp="$2"
     local relief_tif="$3"
     echo "Calculate color relief for $relief_tif"
-    gdaldem color-relief -s "$METERS_SCALE" -co compress=lzw "$dem_source" "$color_ramp" "$relief_tif"
+    gdaldem color-relief -s "$METERS_SCALE" -co compress=lzw  "$dem_source" "$color_ramp" "$relief_tif"
 }
 
 function create_slope_shade() {
@@ -73,9 +73,9 @@ function create_dem_products() {
     local slope="$dest_dir/switzerland_slope.tif"
     local slopeshade="$dest_dir/switzerland_slopeshade.tif"
 
-    #create_color_relief "$dem_source" "./color_relief.txt" "$relief"
-    #create_hillshade "$dem_source" "$hillshade"
-    #create_slope "$dem_source" "$slope"
+    create_color_relief "$dem_source" "./color_relief.txt" "$relief"
+    create_hillshade "$dem_source" "$hillshade"
+    create_slope "$dem_source" "$slope"
     create_slope_shade "$slope" "./color_slope.txt" "$slopeshade"
 }
 
@@ -88,17 +88,17 @@ function fill_nodata() {
 }
 
 function main {
-    local dem_clipped="$OUTPUT_DIR/switzerland_dem_srtm1.tif"
-    local dem_unclipped="$OUTPUT_DIR/switzerland_dem_unclipped_srtm1.tif"
+    local dem_clipped="$OUTPUT_DIR/switzerland_dem.tif"
+    local dem_unclipped="$OUTPUT_DIR/switzerland_dem_unclipped.tif"
 
     echo "Processing DEM $dem_clipped"
 
-    #merge_srtm_files "$DATA_DIR/srtm1" "$dem_unclipped"
-    #fill_nodata "$dem_unclipped"
-    #compress_inplace "$dem_unclipped"
+    merge_srtm_files "$DATA_DIR/srtm1" "$dem_unclipped"
+    fill_nodata "$dem_unclipped"
+    compress_inplace "$dem_unclipped"
 
-    #clip_to_boundaries "$SWITZERLAND_BOUNDARIES_SHP" "$dem_unclipped" "$dem_clipped"
-    #compress_inplace "$dem_clipped"
+    clip_to_boundaries "$SWITZERLAND_BOUNDARIES_SHP" "$dem_unclipped" "$dem_clipped"
+    compress_inplace "$dem_clipped"
     create_dem_products "$dem_clipped" "$OUTPUT_DIR"
 }
 
